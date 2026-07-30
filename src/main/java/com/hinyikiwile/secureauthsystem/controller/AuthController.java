@@ -2,6 +2,8 @@ package com.hinyikiwile.secureauthsystem.controller;
 
 import com.hinyikiwile.secureauthsystem.dto.RegisterRequest;
 import com.hinyikiwile.secureauthsystem.dto.RegisterResponse;
+import com.hinyikiwile.secureauthsystem.dto.LoginRequest;
+import com.hinyikiwile.secureauthsystem.dto.LoginResponse;
 import com.hinyikiwile.secureauthsystem.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -27,5 +29,16 @@ public class AuthController {
                 new RegisterResponse("User registered successfully!");
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> loginUser(
+            @Valid @RequestBody LoginRequest request) {
+
+        String token = userService.loginUser(request);
+
+        LoginResponse response = new LoginResponse(token);
+
+        return ResponseEntity.ok(response);
     }
 }
