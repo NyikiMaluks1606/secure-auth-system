@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class UserController {
+public class AdminController {
 
-    @GetMapping("/api/user/profile")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    public String profile() {
-        return "JWT authentication is working!";
+    @GetMapping("/api/admin/dashboard")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String adminDashboard() {
+        return "Welcome Admin!";
     }
 }

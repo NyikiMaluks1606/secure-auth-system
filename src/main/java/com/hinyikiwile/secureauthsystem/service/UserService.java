@@ -11,6 +11,7 @@ import com.hinyikiwile.secureauthsystem.jwt.JwtService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import com.hinyikiwile.secureauthsystem.entity.Role;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +44,8 @@ public class UserService implements UserDetailsService {
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        user.setRole(Role.USER);
 
         return userRepository.save(user);
     }
@@ -83,7 +86,7 @@ public class UserService implements UserDetailsService {
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getEmail())
                 .password(user.getPassword())
-                .authorities("ROLE_USER")
+                .authorities("ROLE_" + user.getRole().name())
                 .build();
     }
 }
