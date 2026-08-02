@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -19,6 +20,7 @@ public class AuthController {
         this.userService = userService;
     }
 
+    @Operation(summary = "Register a new user")
     @PostMapping("/register")
     public ResponseEntity<RegisterResponse> registerUser(
             @Valid @RequestBody RegisterRequest request) {
@@ -31,6 +33,7 @@ public class AuthController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Authenticate user and generate JWT")
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> loginUser(
             @Valid @RequestBody LoginRequest request) {
